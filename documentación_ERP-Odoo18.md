@@ -15,3 +15,7 @@ En este archivo documentaremos la instalación de Odoo 18 paso a paso.
 #### Comenzamos con la instalación de Odoo18:
 ##### Lo primero que haremos será instalar el servidor PostgreSQL con el siguiente comando:
 `sudo apt install postgresql -y`
+##### Seguido de esto, instalaremos el repositorio de Odoo18 con los siguientes comandos:
+- `wget -q -O - https://nightly.odoo.com/odoo.key | sudo gpg --dearmor -o /usr/share/keyrings/odoo-archive-keyring.gpg` <br><br>
+- `echo 'deb [signed-by=/usr/share/keyrings/odoo-archive-keyring.gpg] https://nightly.odoo.com/18.0/nightly/deb/ ./' | sudo tee /etc/apt/sources.list.d/odoo.list` <br><br>
+- `sudo apt-get update && sudo apt-get install odoo` <br><br>
