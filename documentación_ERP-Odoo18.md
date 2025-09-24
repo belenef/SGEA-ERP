@@ -10,6 +10,7 @@ En este archivo documentaremos la instalación de Odoo 18 paso a paso.
 `dpkg-reconfigure locales` - una vez dentro seleccionamos "*es_ES. UTF-8*"
 #### y para la distribución del teclado usaremos:
 `dpkg-reconfigure keyboard-configuration` una vez dentro seleccionamos cualquier teclado y le damos a español.
+#### Después de configurar, es muy  importante reiniciar
 
 ---
 ## Comenzamos con la instalación de Odoo18:
