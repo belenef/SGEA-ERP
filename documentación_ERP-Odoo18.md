@@ -29,4 +29,45 @@ En este archivo documentaremos la instalación de Odoo 18 paso a paso.
 - `wget -q -O - https://nightly.odoo.com/odoo.key | sudo gpg --dearmor -o /usr/share/keyrings/odoo-archive-keyring.gpg` <br><br>
 - `echo 'deb [signed-by=/usr/share/keyrings/odoo-archive-keyring.gpg] https://nightly.odoo.com/18.0/nightly/deb/ ./' | sudo tee /etc/apt/sources.list.d/odoo.list` <br><br>
 - `sudo apt-get update && sudo apt-get install odoo` <br><br>
-#### Ya que he podido comprobar que al utilizar estos comandos me salta un error, he instalado Odoo vía Docker para instalarlo sin problemas. Usaremos los siguientes comandos:
+#### Ya que he podido comprobar que al utilizar estos comandos me salta un error, he instalado Odoo vía Docker para instalarlo sin problemas.
+#### Antes de instalar Docker Engine por primera vez en un nuevo host, debe configurar el `apt` repositorio de Docker. Hay que ejecutar linea por linea, todo junto NO
+```
+# Add Docker's official GPG key:
+sudo apt-get update
+sudo apt-get install ca-certificates curl
+sudo install -m 0755 -d /etc/apt/keyrings
+sudo curl -fsSL https://download.docker.com/linux/ubuntu/gpg -o /etc/apt/keyrings/docker.asc
+sudo chmod a+r /etc/apt/keyrings/docker.asc
+
+# Add the repository to Apt sources:
+echo \
+  "deb [arch=$(dpkg --print-architecture) signed-by=/etc/apt/keyrings/docker.asc] https://download.docker.com/linux/ubuntu \
+  $(. /etc/os-release && echo "${UBUNTU_CODENAME:-$VERSION_CODENAME}") stable" | \
+  sudo tee /etc/apt/sources.list.d/docker.list > /dev/null
+sudo apt-get update
+```
+#### Después, instalamos los paquetes de Docker:
+`sudo apt-get install docker-ce docker-ce-cli containerd.io docker-buildx-plugin docker-compose-plugin`
+#### y verificamos que se está ejecutando:
+`sudo systemctl status docker`
+
+---
+### Para poner en marcha Odoo 18 en modo producción crearemos dos contenedores:
+- El primer contenedor contendrá la base de datos PostgreSQL en su versión 15.
+- El segundo contenedor contendrá el servidor Odoo.
+#### Creamos el contenedor de PostgreSQL con:
+```
+docker run -d -v /home/usuario/OdooDesarrollo/dataPG:/var/lib/postgresql/data -e
+POSTGRES_USER=odoo -e POSTGRES_PASSWORD=odoo -e POSTGRES_DB=postgres --name db
+postgres:15
+```
+#### Con el contenedor PostgreSQL ya en marcha, creamos el contenedor con Odoo con:
+`docker run -d -p 8069:8069 --name odooprod --user="root" --link db:db odoo:18`
+
+---
+### Abrimos Odoo18
+#### Para ello primero debemos saber cual es nuestra ip, ejecutando este comando: 
+`ip a`
+#### Para abrir Odoo18, deberemos poner en el buscador lo siguiente:
+`(tu ip):8069`
+#### Una vez dentro deberas poner tus datos en el login e iniciar sesión en Odoo18 para poder utilizarlo.
