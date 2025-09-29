@@ -16,7 +16,7 @@ En este archivo documentaremos la instalación de Odoo 18 paso a paso.
 ## Comenzamos con la instalación de Odoo18:
 #### Lo primero que haremos será instalar el servidor PostgreSQL con el siguiente comando:
 `sudo apt install postgresql -y`
-#### Seguido de esto, instalaremos el repositorio de Odoo18 con los siguientes comandos:
+#### Seguido de esto, instalaremos el repositorio de Odoo18 
 #### es recomendable instalar ssh para poder copiar y pegar los comandos, en vez de escribirlos a mano, por tanto tendremos que poner estos comandos ANTES:
 - `sudo apt update`
 - `sudo apt-get install ssh`
@@ -25,7 +25,8 @@ En este archivo documentaremos la instalación de Odoo 18 paso a paso.
 - ##### abrimos la terminal del dispositivo (la de la máquina virtual NO) y ponemos el siguiente comando: `ssh vboxuser@172.30.16.173`
 - ##### le decimos "yes" y ponemos la contraseña de la *máquina virtual*
 ---
-
+#### Instalación Odoo18:
 - `wget -q -O - https://nightly.odoo.com/odoo.key | sudo gpg --dearmor -o /usr/share/keyrings/odoo-archive-keyring.gpg` <br><br>
 - `echo 'deb [signed-by=/usr/share/keyrings/odoo-archive-keyring.gpg] https://nightly.odoo.com/18.0/nightly/deb/ ./' | sudo tee /etc/apt/sources.list.d/odoo.list` <br><br>
 - `sudo apt-get update && sudo apt-get install odoo` <br><br>
+#### Ya que he podido comprobar que al utilizar estos comandos me salta un error, he instalado Odoo vía Docker para instalarlo sin problemas. Usaremos los siguientes comandos:
