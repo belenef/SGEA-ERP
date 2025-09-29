@@ -30,7 +30,7 @@ En este archivo documentaremos la instalación de Odoo 18 paso a paso.
 - `echo 'deb [signed-by=/usr/share/keyrings/odoo-archive-keyring.gpg] https://nightly.odoo.com/18.0/nightly/deb/ ./' | sudo tee /etc/apt/sources.list.d/odoo.list` <br><br>
 - `sudo apt-get update && sudo apt-get install odoo` <br><br>
 #### Ya que he podido comprobar que al utilizar estos comandos me salta un error, he instalado Odoo vía Docker para instalarlo sin problemas.
-#### Antes de instalar Docker Engine por primera vez en un nuevo host, debe configurar el `apt` repositorio de Docker. Hay que ejecutar linea por linea, todo junto NO
+#### Antes de instalar Docker Engine por primera vez en un nuevo host, debe configurar el `apt` repositorio de Docker. Hay que ejecutar linea por linea, todo junto **NO**
 ```
 # Add Docker's official GPG key:
 sudo apt-get update
@@ -66,7 +66,7 @@ postgres:15
 
 ---
 ### Abrimos Odoo18
-#### Para ello primero debemos saber cual es nuestra ip, ejecutando este comando: 
+#### Para ello primero debemos saber cual es nuestra **ip**, ejecutando este comando: 
 `ip a`
 #### Para abrir Odoo18, deberemos poner en el buscador lo siguiente:
 `(tu ip):8069`
