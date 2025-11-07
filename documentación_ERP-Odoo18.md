@@ -71,3 +71,18 @@ postgres:15
 #### Para abrir Odoo18, deberemos poner en el buscador lo siguiente:
 `(tu ip):8069`
 #### Una vez dentro deberas poner tus datos en el login e iniciar sesión en Odoo18 para poder utilizarlo.
+
+---
+### Conectarse a GitHub
+`git config --global user.name "belenef"`<br>
+`git config --global user.email "beleneezz@gmail.com"`
+#### crear rama
+`git checkout -b (nombre rama nueva)`
+#### moverse de rama
+`git checkout (nombre de la rama)`
+#### clonar repositorio
+`git clone (url repositorio github)`
+#### descargar archivos repositorio al clonarlo en otra máquina
+`git fetch --all`
+#### comprimir al max nivel un archivo para que ocupe menos
+`tar cvf micomprimido.tar.xz -I 'xz -9'`
