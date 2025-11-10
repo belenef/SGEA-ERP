@@ -111,3 +111,14 @@ tu-proyecto/<br>
  - └─ dataPostgreSQL/ (dentro de volumesOdoo)<br>
 #### El archivo `docker-compose.yml` debe estar fuera de `volumesOdoo`.
 #### Resumiendo, en la carpeta de tu proyecto tiene que estar el .yml fuera de la carpeta 'volumesOdoo' *SINO NO IRÁ*
+---
+
+### copiar un archivo a otra carpeta
+si estoy en el repositorio: `cp archivo.txt ../examen/`<br>
+Esto copia archivo.txt desde el repositorio directamente a la carpeta examen.: `cp /home/usuario/repositorio/archivo.txt /home/usuario/examen/`
+### subir archivos a github
+- Agregar archivos: `git add .`<br>
+- Hacer commit: `git commit -m "Mensaje descriptivo del cambio"`<br>
+- Subir a la rama 'examen': `git push origin examen`<br>
+- Si la rama examen no existe en el repositorio remoto todavía, puedes crearla y subirla así: `git push -u origin examen`
+- Si quisiera subirlo a la rama main sería: `git push origin main`
