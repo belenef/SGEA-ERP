@@ -122,3 +122,20 @@ Esto copia archivo.txt desde el repositorio directamente a la carpeta examen.: `
 - Subir a la rama 'examen': `git push origin examen`<br>
 - Si la rama examen no existe en el repositorio remoto todavía, puedes crearla y subirla así: `git push -u origin examen`
 - Si quisiera subirlo a la rama main sería: `git push origin main`
+
+  ---
+  ### si ocurre este error:<br>
+  `Error response from daemon: Conflict. The container name "/odoo-db" is already in use by       container "8e17c358e8830b4268eadea05e6bb3c52ed715e34230b2fc9052e8fbf864aad7". You have to       remove (or rename) that container to be able to reuse that name.`<br>
+  ### Entonces usar estos comandos *ANTES* de lanzar el docker-compose:<br>
+  - `sudo docker stop odoo-db` | `sudo docker rm odoo-db`<br>
+  - `sudo docker stop odoo-web` | `sudo docker rm odoo-web`<br>
+  ### NOTA: hay que lanzar el docker *DENTRO* de miproyecto
+  ---
+  ### Mover archivos del repositorio a una nueva carpeta llamada *EXAMEN*
+  - `mv ~/EXAMEN/miproyecto.tar.xz ~/EXAMEN/`<br>
+  - verificar que se ha movido: `ls ~/EXAMEN` | debes ver: `miproyecto.tar.xz`
+  ### Descomprimir el archivo .tar.xz desde cualquier ubicacion a EXAMEN:
+  - `tar -xvJf ~/EXAMEN/miproyecto.tar.xz -C ~/EXAMEN`
+  - verificar: `ls ~/EXAMEN`
+  - dentro de miproyecto deberia de salir: `docker-compose.yml volumesOdoo/`
+  
