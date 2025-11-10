@@ -129,7 +129,7 @@ Esto copia archivo.txt desde el repositorio directamente a la carpeta examen.: `
   ### Entonces usar estos comandos *ANTES* de lanzar el docker-compose:<br>
   - `sudo docker stop odoo-db` | `sudo docker rm odoo-db`<br>
   - `sudo docker stop odoo-web` | `sudo docker rm odoo-web`<br>
-  ### NOTA: hay que lanzar el docker *DENTRO* de miproyecto
+  ### **NOTA**: hay que lanzar el docker *DENTRO* de miproyecto
   ---
   ### Mover archivos del repositorio a una nueva carpeta llamada *EXAMEN*
   - `mv ~/EXAMEN/miproyecto.tar.xz ~/EXAMEN/`<br>
@@ -138,4 +138,9 @@ Esto copia archivo.txt desde el repositorio directamente a la carpeta examen.: `
   - `tar -xvJf ~/EXAMEN/miproyecto.tar.xz -C ~/EXAMEN`
   - verificar: `ls ~/EXAMEN`
   - dentro de miproyecto deberia de salir: `docker-compose.yml volumesOdoo/`
+  ---
+  ### Por ultimo subir los contenidos de la carpeta **EXAMEN** a github:
+  - **dentro** de EXAMEN hacer: `git add .`
+  - `git commit -m "Subo carpeta EXAMEN con miproyecto y volúmenes"`
+  - `git push origin main` | `git push origin examen` | `git push origin (nueva rama)`
   
