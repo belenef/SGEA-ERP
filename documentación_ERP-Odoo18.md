@@ -70,6 +70,7 @@ postgres:15
 `ip a`
 #### Para abrir Odoo18, deberemos poner en el buscador lo siguiente:
 `(tu ip):8069`
+`(tu ip):8069/web?debug=assets`
 #### Una vez dentro deberas poner tus datos en el login e iniciar sesión en Odoo18 para poder utilizarlo.
 
 ---
@@ -86,3 +87,27 @@ postgres:15
 `git fetch --all`
 #### comprimir al max nivel un archivo para que ocupe menos
 `tar cvf micomprimido.tar.xz -I 'xz -9'`
+
+---
+### Conectar Odoo desde otra máquina
+1 - conectarse a github <br>
+2 - clonar repositorio <br>
+3 - descomprimir archivos `tar -xvf archivo.tar` <br>
+4 - lanzar `sudo docker compose up -d` / `sudo docker compose up` <br>
+5 - si vas a: (tu ip):8069, ya debería de funcionar odoo
+#### Comandos importantes por si algo fallara:
+Ver contenedores en ejecución: `docker ps`<br>
+Ver todos los contenedores (activos e inactivos): `docker ps -a`<br>
+Asegurarse de tener Git instalado: `git --version`<br>
+Versiones de cliente y servidor: `docker version`<br>
+Estado general de Docker: `docker info`
+
+### Asegurate de que el orden de los archivos sea el siguiente:
+tu-proyecto/<br>
+├─ docker-compose.yml<br>
+├─ volumesOdoo/<br>
+-  ├─ addons/ (dentro de volumesOdoo)<br>
+-  ├─ odoo-web-data/ (dentro de volumesOdoo)<br>
+ - └─ dataPostgreSQL/ (dentro de volumesOdoo)<br>
+#### El archivo `docker-compose.yml` debe estar fuera de `volumesOdoo`.
+#### Resumiendo, en la carpeta de tu proyecto tiene que estar el .yml fuera de la carpeta 'volumesOdoo' *SINO NO IRÁ*
