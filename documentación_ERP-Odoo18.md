@@ -134,6 +134,7 @@ Esto copia archivo.txt desde el repositorio directamente a la carpeta examen.: `
   ### Mover archivos del repositorio a una nueva carpeta llamada *EXAMEN*
   - `mv ~/EXAMEN/miproyecto.tar.xz ~/EXAMEN/`<br>
   - si SGEA-ERP está fuera de EXAMEN, y el archivo está dentro de SGEA-ERP, el comando correcto     sería: `mv ~/SGEA-ERP/miproyecto.tar.xz ~/EXAMEN/`<br>
+  - si estamos dentro de SGEA-ERP y la carpeta EXAMEN está fuera, usar este comando dentro de SGEA-ERP: `mv miproyecto.tar.xz ../EXAMEN/`<br>
   - verificar que se ha movido: `ls ~/EXAMEN` | debes ver: `miproyecto.tar.xz`
   ### Descomprimir el archivo .tar.xz desde cualquier ubicacion a EXAMEN:
   - `tar -xvJf ~/EXAMEN/miproyecto.tar.xz -C ~/EXAMEN`
