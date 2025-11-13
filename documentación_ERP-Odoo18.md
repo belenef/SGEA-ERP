@@ -87,6 +87,8 @@ postgres:15
 `git fetch --all`
 #### comprimir al max nivel un archivo para que ocupe menos
 `tar cvf micomprimido.tar.xz -I 'xz -9'`
+#### actualizar repositorio
+`git pull` hacerlo desde la carpeta del repositorio
 
 ---
 ### Conectar Odoo desde otra máquina
