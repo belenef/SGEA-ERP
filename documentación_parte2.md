@@ -24,5 +24,5 @@
   <li>Una vez dentro, le damos a nuevo y ya podriamos crear una <strong>plantilla de correo</strong> nueva.</li>
   <li>Rellenamos los campos de: nombre, aplica a y asunto.</li>
   <li>Para poner variables en el apartado de contenido,tendremos que poner "/" seguido de la opción <strong>Marcador de posición dinámico</strong>.</li>
-  <li>Una vez clicada esa opción, buscamos la opción de <strong>Nombre</strong> y nos aparecerá la variable `object.name` , de esta manera podremos poner por ejemplo el nombre.</li>
+  <li>Una vez clicada esa opción, buscamos la opción de <strong>Nombre</strong> y nos aparecerá la variable <code>object.name</code>, de esta manera podremos poner por ejemplo el nombre.</li>
 </ol>
