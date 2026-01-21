@@ -1,141 +1,127 @@
-# Guía para crear un módulo en Odoo vía terminal (Linux)
+# Guía para crear un módulo en Odoo usando Docker (Scaffold)
 
-Esta guía paso a paso te enseña cómo crear un módulo mínimo de Odoo directamente desde la terminal en Linux, sin usar la interfaz web.
-
----
-
-## 1. Preparar el entorno
-
-1. Asegúrate de que tus contenedores de Odoo y PostgreSQL estén funcionando:
-
-```bash
-docker compose ps
-```
-
-2. Abre la carpeta de addons dentro de tu host (VM) o del contenedor:
-
-```bash
-cd ~/dockercompose/odoo_custom_addons  # Carpeta personalizada de addons
-# o si ya existe la carpeta addons de Odoo:
-cd ~/dockercompose/addons
-```
-
-3. Si quieres trabajar dentro del contenedor de Odoo:
-
-```bash
-docker compose exec web bash  # 'web' es el servicio de Odoo
-cd /mnt/extra-addons
-```
+Esta guía explica paso a paso cómo crear un módulo de Odoo utilizando el comando **scaffold** cuando Odoo está ejecutándose dentro de un contenedor Docker.
 
 ---
 
-## 2. Crear la estructura del módulo
+## 📦 Requisitos
 
-Supongamos que el módulo se llamará `mi_modulo`.
+* Odoo ejecutándose vía **Docker**
+* Acceso a la terminal Linux (host)
+* Volumen de addons correctamente mapeado
 
-```bash
-mkdir -p mi_modulo/models
-cd mi_modulo
-```
+En este caso:
 
-Estructura mínima:
+* Contenedor de Odoo: **`odoo-web`**
+* Imagen: **`odoo:18`**
+* Ruta de addons en el host:
 
-```
-mi_modulo/
-├── __init__.py
-├── __manifest__.py
-└── models/
-    ├── __init__.py
-    └── mi_modelo.py
-```
+  ```
+  /home/vboxuser/dockercompose/volumesOdoo/addons
+  ```
+* Ruta de addons dentro del contenedor:
+
+  ```
+  /mnt/extra-addons
+  ```
 
 ---
 
-## 3. Crear archivos del módulo
+## 🔎 1. Verificar el nombre del contenedor
 
-### a) `__init__.py` del módulo
+Ejecuta:
 
 ```bash
-echo "from . import models" > __init__.py
+docker ps
 ```
 
-### b) `__manifest__.py` (manifiesto)
+Deberías ver algo similar a:
 
-```bash
-cat > __manifest__.py <<EOF
-{
-    "name": "Mi Módulo",
-    "version": "1.0",
-    "summary": "Módulo de prueba desde terminal",
-    "description": "Este módulo fue creado desde la terminal",
-    "author": "Tu Nombre",
-    "depends": ["base"],
-    "data": [],
-    "installable": True,
-    "application": True
-}
-EOF
+```
+NAMES
+odoo-web
 ```
 
-### c) `models/__init__.py`
+Este nombre es el que se usará en los comandos siguientes.
+
+---
+
+## 🛠️ 2. Crear el módulo con scaffold
+
+Ejecuta el siguiente comando para crear un módulo llamado `mi_modulo`:
 
 ```bash
-echo "from . import mi_modelo" > models/__init__.py
+docker exec -it odoo-web odoo scaffold mi_modulo /mnt/extra-addons
 ```
 
-### d) `models/mi_modelo.py`
+### 📌 Error común: `odoo: command not found`
+
+Algunas imágenes usan `odoo-bin` en lugar de `odoo`. Si ocurre ese error, usa:
 
 ```bash
-cat > models/mi_modelo.py <<EOF
-from odoo import models, fields
+docker exec -it odoo-web odoo-bin scaffold mi_modulo /mnt/extra-addons
+```
 
-class MiModelo(models.Model):
-    _name = "mi.modulo"
-    _description = "Modelo de prueba"
+Cualquiera de los dos funciona con la imagen **odoo:18**, dependiendo de la configuración.
 
-    name = fields.Char(string="Nombre", required=True)
-    descripcion = fields.Text(string="Descripción")
-EOF
+---
+
+## 🧩 3. Confirmar el volumen en `docker-compose.yml`
+
+Asegúrate de que el archivo `docker-compose.yml` tenga este volumen:
+
+```yaml
+volumes:
+  - /home/vboxuser/dockercompose/volumesOdoo/addons:/mnt/extra-addons
+```
+
+Gracias a este mapeo, el módulo se creará físicamente en el host en:
+
+```
+/home/vboxuser/dockercompose/volumesOdoo/addons/mi_modulo
 ```
 
 ---
 
-## 4. Reiniciar Odoo para detectar el módulo
+## 🔍 4. Verificar desde el host
 
-Desde la **terminal del host** (no dentro del contenedor):
-
-```bash
-docker compose restart web
-```
-
-* `web` es el nombre del servicio de Odoo.
-
----
-
-## 5. Instalar el módulo desde la interfaz web
-
-1. Abre tu navegador y ve a la IP de Odoo, por ejemplo:
-
-```
-http://192.168.5.124:8069
-```
-
-2. Activa **modo desarrollador**: Configuración → Activar Developer Mode.
-3. Ve a **Apps → Update Apps List** → Confirmar.
-4. Busca `Mi Módulo` y haz clic en **Instalar**.
-
----
-
-## 6. Verificar que el módulo está activo
-
-* Una vez instalado, podrás usar el modelo `mi.modulo` y sus campos (`name` y `descripcion`) desde la interfaz web.
-* También puedes listar los addons reconocidos desde el contenedor:
+En la terminal del host ejecuta:
 
 ```bash
-docker compose exec web bash
-odoo -c /etc/odoo/odoo.conf --list-addons
+ls /home/vboxuser/dockercompose/volumesOdoo/addons
+```
+
+Deberías ver la carpeta:
+
+```
+mi_modulo
+```
+
+Dentro encontrarás la estructura base del módulo creada por Odoo.
+
+---
+
+## 🔄 5. Reiniciar Odoo
+
+Para que Odoo detecte el nuevo módulo:
+
+```bash
+docker restart odoo-web
 ```
 
 ---
 
-**¡Listo!** Ahora tienes un módulo mínimo de Odoo creado totalmente desde la terminal en Linux y listo para instalar y probar.
+## 🖥️ 6. Activar el módulo en Odoo
+
+Desde la interfaz web de Odoo:
+
+1. Activa el **modo desarrollador**
+2. Ve a **Aplicaciones**
+3. Pulsa **Actualizar lista de aplicaciones**
+4. Busca **mi_modulo**
+5. Instálalo
+
+---
+
+✅ ¡Listo! Ya tienes tu módulo Odoo creado correctamente usando Docker y scaffold.
+
