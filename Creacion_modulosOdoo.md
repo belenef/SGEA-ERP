@@ -66,38 +66,12 @@ Cualquiera de los dos funciona con la imagen **odoo:18**, dependiendo de la conf
 
 ---
 
-## 🧩 3. Confirmar el volumen en `docker-compose.yml`
-
-Asegúrate de que el archivo `docker-compose.yml` tenga este volumen:
-
-```yaml
-volumes:
-  - /home/vboxuser/dockercompose/volumesOdoo/addons:/mnt/extra-addons
-```
-
-Gracias a este mapeo, el módulo se creará físicamente en el host en:
-
-```
-/home/vboxuser/dockercompose/volumesOdoo/addons/mi_modulo
-```
-
----
-
-## 🔍 4. Verificar desde el host
-
-En la terminal del host ejecuta:
-
-```bash
-ls /home/vboxuser/dockercompose/volumesOdoo/addons
-```
-
-Deberías ver la carpeta:
-
-```
-mi_modulo
-```
-
-Dentro encontrarás la estructura base del módulo creada por Odoo.
+### Otra manera de crearlo (mas facil):
+ir a la ruta donde esta docker --> `/home/vboxuser/dockercompose#`<br>
+Acceder a la `bash` de odoo --> `docker exec -it odoo-web bash`<br>
+Cambiar a la ruta donde estan los addons --> `cd mnt/extra-addons/`<br>
+Crear el modulo con `scaffold` --> `odoo scaffold (nombre del modulo)`<br>
+Hacer un `ls` para comprobar su creacion.<br>
 
 ---
 
@@ -107,6 +81,13 @@ Para que Odoo detecte el nuevo módulo:
 
 ```bash
 docker restart odoo-web
+```
+O tambien podemos apagar odoo y volverlo a ejecutar:
+```
+docker compose down
+```
+```
+docker compose up -d
 ```
 
 ---
